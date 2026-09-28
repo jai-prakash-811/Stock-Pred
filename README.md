@@ -1,3 +1,3 @@
 # Stock-Pred
 
-[![Open in Bolt](https://bolt.new/static/open-in-bolt.svg)](https://bolt.new/~/sb1-aaqbos1p)
+PredictIQ is an AI-powered stock market dashboard built with React, Vite, and Supabase.

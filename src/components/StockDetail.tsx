@@ -1,10 +1,10 @@
-import { useMemo, useState } from 'react';
-import type { Stock, PredictionRecord } from '@/types';
-import { runPrediction, getPredictionSignals } from '@/lib/prediction';
-import { supabase } from '@/lib/supabase';
-import { PredictionChart } from '@/components/PredictionChart';
-import { PriceChart } from '@/components/PriceChart';
-import { TechnicalIndicatorsPanel } from '@/components/TechnicalIndicatorsPanel';
+import { useEffect, useMemo, useState } from 'react';
+import type { Stock, PredictionRecord } from '../types';
+import { runPrediction, getPredictionSignals } from '../lib/prediction';
+import { supabase } from '../lib/supabase';
+import { PredictionChart } from './PredictionChart';
+import { PriceChart } from './PriceChart';
+import { TechnicalIndicatorsPanel } from './TechnicalIndicatorsPanel';
 import { ArrowLeft, TrendingUp, TrendingDown, Star, Brain, Clock, Activity, Zap } from 'lucide-react';
 
 interface StockDetailProps {
@@ -37,8 +37,10 @@ export function StockDetail({ stock, onBack, isWatched, onToggleWatch }: StockDe
     setLoadingHistory(false);
   };
 
-  // Load history on mount
-  useMemo(() => { loadHistory(); /* eslint-disable-line */ }, [stock.symbol]);
+  // Load history when the selected stock changes.
+  useEffect(() => {
+    loadHistory();
+  }, [stock.symbol]);
 
   const handlePredict = async () => {
     setPredicting(true);

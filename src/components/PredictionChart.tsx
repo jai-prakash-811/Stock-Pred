@@ -1,5 +1,5 @@
 import { useMemo } from 'react';
-import type { PricePoint, ForecastPoint } from '@/types';
+import type { PricePoint, ForecastPoint } from '../types';
 
 interface PredictionChartProps {
   history: PricePoint[];

@@ -79,7 +79,7 @@ CREATE POLICY "anon_delete_stocks" ON stocks FOR DELETE
 
 CREATE TABLE IF NOT EXISTS watchlist (
   id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
-  symbol text NOT NULL,
+  symbol text UNIQUE NOT NULL,
   added_at timestamptz DEFAULT now()
 );
 

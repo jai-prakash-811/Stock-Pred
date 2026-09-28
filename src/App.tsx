@@ -1,9 +1,9 @@
 import { useEffect, useState, useMemo } from 'react';
-import type { Stock, PredictionRecord } from '@/types';
-import { supabase } from '@/lib/supabase';
-import { StockDetail } from '@/components/StockDetail';
-import { Sparkline } from '@/components/Sparkline';
-import { PriceChart } from '@/components/PriceChart';
+import type { Stock, PredictionRecord } from './types';
+import { isSupabaseConfigured, supabase } from './lib/supabase';
+import { StockDetail } from './components/StockDetail';
+import { Sparkline } from './components/Sparkline';
+import { PriceChart } from './components/PriceChart';
 import { TrendingUp, TrendingDown, Star, Search, Brain, Activity, BarChart3, Plus, X } from 'lucide-react';
 
 type View = 'dashboard' | 'detail';
@@ -22,6 +22,11 @@ export default function App() {
 
   // Load data from Supabase
   const loadData = async () => {
+    if (!isSupabaseConfigured) {
+      setLoading(false);
+      return;
+    }
+
     const [stocksRes, watchRes, predRes] = await Promise.all([
       supabase.from('stocks').select('*').order('market_cap', { ascending: false }),
       supabase.from('watchlist').select('symbol'),
@@ -176,6 +181,12 @@ export default function App() {
       </header>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 py-6 space-y-6">
+        {!isSupabaseConfigured && (
+          <div className="border border-amber-500/30 bg-amber-500/10 rounded-xl px-4 py-3 text-sm text-amber-200">
+            Add <span className="font-mono">VITE_SUPABASE_URL</span> and <span className="font-mono">VITE_SUPABASE_ANON_KEY</span> to your <span className="font-mono">.env</span> file to load market data.
+          </div>
+        )}
+
         {/* Market Summary */}
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
           <div className="bg-gradient-to-br from-slate-900 to-slate-900/50 border border-slate-800 rounded-xl p-5">

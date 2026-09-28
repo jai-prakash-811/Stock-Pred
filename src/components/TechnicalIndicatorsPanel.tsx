@@ -1,4 +1,4 @@
-import type { TechnicalIndicators } from '@/types';
+import type { TechnicalIndicators } from '../types';
 import { TrendingUp, TrendingDown, Minus } from 'lucide-react';
 
 interface IndicatorRowProps {

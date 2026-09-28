@@ -1,4 +1,4 @@
-import type { PricePoint, TechnicalIndicators, PredictionResult, ForecastPoint } from '@/types';
+import type { PricePoint, TechnicalIndicators, PredictionResult, ForecastPoint } from '../types';
 
 export function calculateSMA(prices: number[], period: number): number {
   if (prices.length < period) return prices[prices.length - 1] ?? 0;
